@@ -1,10 +1,10 @@
 <?php
-include './funcionesEmpleados.php'; // Asegúrate de incluir las funciones necesarias
+if (isset($_GET['key'])) {
+    $idPersona = $_GET['key'];  // Obtener el ID desde la URL
+    $empleadoBL = new EmpleadoBL(); // Instanciar EmpleadoBL
 
-include './funciones.php';
-if (isset($_GET['id'])) {
-    $idPersona = $_GET['id'];  // Obtener el ID desde la URL
-    $empleado = getEmpleadoById($idPersona=4);  // Obtener los datos del empleado
+    // Utilizar buscarEmpleado para obtener los datos del empleado
+    $empleado = $empleadoBL->buscarEmpleado($idPersona);  
     
     if (!$empleado) {
         echo "Empleado no encontrado.";
@@ -14,8 +14,6 @@ if (isset($_GET['id'])) {
     echo "No se ha proporcionado un ID.";
     exit;
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
