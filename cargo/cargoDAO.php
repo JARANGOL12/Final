@@ -19,20 +19,18 @@ class cargoDao{
             }
       }
       function actualizar($cargo){
-            $database = new ConexionBD();
-            $bd=$database->openConexion();
+            $database = new conexionBD();
+            $bd = $database->openConexion();
+        
             try {
-                  $sql ="UPDATE cargo SET descripcion = :descripcion WHERE idCargo:idCargo";
-
-                  $stmt =$bd->prepare($sql);
-                  $stmt=bindParam(": descripcion",$cargo['descripcion']);
-                  $stmt->bindParam("idCargo",$cargo['idCargo']);
-                  $stmt->execute();
-                  echo " Se actualizo exitosamente";
-
+                $sql = "UPDATE cargo SET descripcion = :descripcion WHERE idCargo = :idCargo";
+                $stmt = $bd->prepare($sql); 
+                $stmt->bindParam(":descripcion", $cargo['descripcion']);
+                $stmt->bindParam(":idCargo", $cargo['idCargo']);  
+                $stmt->execute(); 
+                echo "Se actualizó exitosamente.";
             } catch (PDOException $exc) {
-
-                  echo $exc ->getMessage();
+                echo $exc->getMessage(); 
             }
 
 

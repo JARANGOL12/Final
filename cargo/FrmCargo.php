@@ -55,8 +55,8 @@ $lista= $bl->listar();
                             <td><?php echo ($cargo['descripcion']); ?></td>
                           
                             <td>
-                                <a href="ActualizarCargo.php?key=<?php echo $cargo['idCargo'] ?>" class="btn btn-primary">Editar</a>
-                                <a href="eliminarCargo.php?key=<?php echo $cargo['idCargo'] ?>" class="btn btn-secondary">Eliminar</a>
+                                <a href="frmCargoUpdate.php?key=<?php echo $cargo['idCargo'] ?>" class="btn btn-primary">Editar</a>
+                                <a href="deleteCargo.php?key=<?php echo $cargo['idCargo'] ?>" class="btn btn-secondary">Eliminar</a>
                             </td>
                         </tr>
                         <?php

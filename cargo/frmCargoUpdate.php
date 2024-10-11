@@ -20,7 +20,7 @@ $lista = $bl->buscar($id);
 <body>
     <div class="container">
         <h1>Actualizar Cargo</h1> 
-        <form action="updateCargo.php" method="post">
+        <form action="cargoUpdate.php" method="post">
             <?php
             if (!empty($lista)) {
                 foreach ($lista as $value) {

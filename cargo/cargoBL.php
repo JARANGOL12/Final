@@ -24,13 +24,13 @@ class  cargoBL{
             }
       }
       function buscar($id){
-            $dato = new cargoDAO();
-            try {
-                  return $dao->buscar($id);
+            $dao = new cargoDao();
+        try {
+            return $dao->buscar($id);
+        } catch (PDOException $exc) {
 
-            } catch (PDOException $exc) {
-                  echo $exc->getMessage();
-            }
+            echo $exc->getMessage();
+        }
       }
       function actualizar($cargo){
             $dao = new cargoDAO();
