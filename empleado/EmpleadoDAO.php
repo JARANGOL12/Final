@@ -49,31 +49,38 @@ class EmpleadoDAO{
 
     // Método para buscar un empleado por ID
     public function buscarEmpleado($idEmpleado) {
-        $sql = "SELECT * FROM empleado WHERE idEmpleado = :idEmpleado";
-        $stmt = $this->bd->prepare($sql);
-        $stmt->bindParam(':idEmpleado', $idEmpleado);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna la fila como un array asociativo
+        $sql = "SELECT e.idEmpleado, e.codEmpleado, e.idCargo, e.salario, e.fechaIngreso, p.idPersona, p.dni, p.nombre, p.apellido, p.edad 
+            FROM empleado e
+            JOIN persona p ON e.idPersona = p.idPersona 
+            WHERE e.idEmpleado = :idEmpleado";
+    $stmt = $this->bd->prepare($sql);
+    $stmt->bindParam(':idEmpleado', $idEmpleado);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna la fila como un array asociativo
     }
 
-    // Método para actualizar un empleado
-    public function actualizarEmpleado($idEmpleado, $codEmpleado, $fechaIngreso, $salario, $idCargo) {
-        $sql = "UPDATE empleado SET codEmpleado = :codEmpleado, fechaIngreso = :fechaIngreso, salario = :salario, idCargo = :idCargo WHERE idEmpleado = :idEmpleado";
+
+    public function actualizarEmpleado($idEmpleado, $idPersona, $dni, $nombre, $apellido, $edad, $codEmpleado, $fechaIngreso, $salario, $idCargo) {
+        $sql = "UPDATE empleado e
+        JOIN persona p ON e.idPersona = p.idPersona
+        SET p.dni = :dni, p.nombre = :nombre, p.apellido = :apellido, p.edad = :edad,
+            e.codEmpleado = :codEmpleado, e.fechaIngreso = :fechaIngreso, e.salario = :salario, e.idCargo = :idCargo
+        WHERE e.idEmpleado = :idEmpleado";
+
         $stmt = $this->bd->prepare($sql);
-
-        // Vincular parámetros
-        $stmt->bindParam(':codEmpleado', $codEmpleado);
-        $stmt->bindParam(':fechaIngreso', $fechaIngreso);
-        $stmt->bindParam(':salario', $salario);
-        $stmt->bindParam(':idCargo', $idCargo);
         $stmt->bindParam(':idEmpleado', $idEmpleado);
+        $stmt->bindParam(':dni', $dni);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellido', $apellido);
+        $stmt->bindParam(':edad', $edad);
+$stmt->bindParam(':codEmpleado', $codEmpleado);
+$stmt->bindParam(':fechaIngreso', $fechaIngreso);
+$stmt->bindParam(':salario', $salario);
+$stmt->bindParam(':idCargo', $idCargo);
 
-        if (!$stmt->execute()) {
-            echo "Error: " . implode(", ", $stmt->errorInfo());
-        }
-
-        return true;
+return $stmt->execute();
+// Retorna true si la actualización fue exitosa
+    
     }
 
     // Método para eliminar un empleado
@@ -82,11 +89,10 @@ class EmpleadoDAO{
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(':idEmpleado', $idEmpleado);
 
-        return $stmt->execute(); // Retorna el resultado de la ejecución
+        return $stmt->execute(); 
     }
 
-    // Cerrar la conexión al final
     public function __destruct() {
-        $this->bd = null; // Cerrar la conexión PDO
+        $this->bd = null;
     }
 }

@@ -119,7 +119,7 @@ $listaEmpleados = $empleadoBL->obtenerEmpleados();
                     <td><?= htmlspecialchars($empleado['fechaIngreso']); ?></td>
                     <td><?= htmlspecialchars($empleado['salario']); ?></td>
                     <td>
-                        <a href="FrmActullizar.php?id=<?= urlencode($empleado['idEmpleado']); ?>" class="btn btn-primary">Editar</a>
+                    <a href="updateEmpleado.php?id=<?= urlencode($empleado['idEmpleado']); ?>" class="btn btn-primary">Editar</a>
                         <a href="deleteEmpleado.php?id=<?= urlencode($empleado['idEmpleado']); ?>" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>

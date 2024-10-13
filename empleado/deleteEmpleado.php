@@ -2,7 +2,7 @@
 include_once 'empleadoBL.php'; // Asegúrate de que esta clase esté disponible
 
 // Obtener el ID del empleado de la URL
-$idEmpleado = $_GET['key'] ?? null;
+$idEmpleado = $_GET['id'] ?? null;
 
 if ($idEmpleado) {
     // Crear una instancia de EmpleadoBL
